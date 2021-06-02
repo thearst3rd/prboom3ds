@@ -137,7 +137,7 @@ int             autorun = false;      // always running?          // phares
 int             totalleveltimes;      // CPhipps - total time for all completed levels
 int		longtics;
 
-boolean automapmode_restart = false;
+boolean automapmode_restart = true; // 3DS, start off as true rather than false
 
 //
 // controls (have defaults)
