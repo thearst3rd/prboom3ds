@@ -29,6 +29,8 @@ int use_fullscreen;
 int desired_fullscreen;
 // static SDL_Surface *screen;
 
+extern boolean onscreen_keyboard_enabled;
+
 unsigned char* out_buffer = NULL;
 
 void AM_ZoomOut();
@@ -448,7 +450,8 @@ void I_StartTic(void) {
 	}
 	else {
 		DS_Controls();
-		keyboard_input();
+		if (onscreen_keyboard_enabled)
+			keyboard_input();
 	}
 }
 

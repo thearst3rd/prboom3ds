@@ -2957,7 +2957,10 @@ setup_menu_t gen_settings1[] = { // General Settings screen1
 
 enum {
   general_mouse,
+#ifdef USE_JOY
   general_joy,
+#endif
+  general_oskeyboard,
   general_leds
 };
 
@@ -2997,6 +3000,9 @@ setup_menu_t gen_settings2[] = { // General Settings screen2
   { "Enable Joystick", S_YESNO, m_null, G_X,
    G_YB + general_joy*8, {"use_joystick"}},
 #endif
+
+  { "Enable Onscreen Keyboard", S_YESNO, m_null, G_X,
+    G_YB + general_oskeyboard*8, {"onscreen_keyboard_enabled"}},
 
   {"Files Preloaded at Game Startup",S_SKIP|S_TITLE, m_null, G_X,
    G_YB1 - 12},

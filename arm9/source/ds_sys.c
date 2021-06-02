@@ -16,6 +16,8 @@
 
 #define timers2ms(tlow,thigh) ((tlow>>5)+(thigh<<11))
 
+boolean onscreen_keyboard_enabled = true;
+
 int stat_3ds(const char *fname, struct stat *st)
 {
 	FILE* file;
@@ -88,7 +90,8 @@ boolean I_StartDisplay(void)
 void I_EndDisplay(void)
 {
 	displaytime = GetTicks() - start_displaytime;
-	keyboard_draw();
+	if (onscreen_keyboard_enabled)
+		keyboard_draw();
 	copy_subscreen(GFX_LEFT);
 	InDisplay = false;
 }

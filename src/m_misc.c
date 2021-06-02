@@ -176,6 +176,8 @@ extern const char* chat_macros[];
 
 extern const char* S_music_files[]; // cournia
 
+extern boolean onscreen_keyboard_enabled;
+
 /* cph - Some MBF stuff parked here for now
  * killough 10/98
  */
@@ -547,6 +549,10 @@ default_t defaults[] =
   // killough 2/22/98: screenshot key
   {"key_screenshot",  {&key_screenshot},      {'*'}            ,
    0,MAX_KEY,def_key,ss_keys}, // key to take a screenshot
+
+  // 3DS, should onscreen keyboard be shown
+  {"onscreen_keyboard_enabled", {&onscreen_keyboard_enabled}, {1},
+   0,1,def_bool,ss_none},
 
 #ifdef USE_JOY
   {"Joystick settings",{NULL},{0},UL,UL,def_none,ss_none},
