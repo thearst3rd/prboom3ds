@@ -41,10 +41,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# 3DS files
 /build
-prboom3ds.elf
-Debug/prboom.log
-prboom.sdf
-Debug/prboom.log
-prboom.opensdf
-Debug/prboom.log
+*.elf
+*.smdh
+*.cia
+*.3dsx
