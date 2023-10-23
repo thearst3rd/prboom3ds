@@ -965,9 +965,9 @@ void M_LoadDefaults (void)
 	defaultfile = malloc(len+1);
 	doom_snprintf(defaultfile, len+1, BOOM_CFG);
 #else
-    int len = doom_snprintf(NULL, 0, "%s" BOOM_CFG, exedir);
+    int len = doom_snprintf(NULL, 0, "%s/" BOOM_CFG, exedir);
     defaultfile = malloc(len+1);
-    doom_snprintf(defaultfile, len+1, "%s" BOOM_CFG, exedir);
+    doom_snprintf(defaultfile, len+1, "%s/" BOOM_CFG, exedir);
 #endif
   }
 

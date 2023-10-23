@@ -1783,9 +1783,7 @@ void (CheckSaveGame)(size_t size, const char* file, int line)
 int G_SaveGameName(char *name, size_t size, int slot, boolean demoplayback)
 {
   const char* sgn = demoplayback ? "demosav" : savegamename;
-  return doom_snprintf(name, size, "%s%s%d.dsg", basesavegame, sgn, slot);
-  //return doom_snprintf(name, size, "%s/%s%d.dsg", basesavegame, sgn, slot);
-  //return doom_snprintf(name, size, "%s%d.dsg", sgn, slot);
+  return doom_snprintf(name, size, "%s/%s%d.dsg", basesavegame, sgn, slot);
 }
 
 static void G_DoSaveGame (boolean menu)
@@ -2337,7 +2335,7 @@ void G_RecordDemo (const char* name)
       /* Now read the demo to find the last save slot */
       do {
         byte buf[5];
-      
+
         rc = fread(buf, 1, bytes_per_tic, demofp);
         if (buf[0] == DEMOMARKER) break;
         if (buf[bytes_per_tic-1] & BT_SPECIAL)
@@ -2556,7 +2554,7 @@ void G_BeginRecording (void)
         case prboom_4_compatibility: v = 212; break;
         case prboom_5_compatibility: v = 213; break;
         case prboom_6_compatibility:
-				     v = 214; 
+				     v = 214;
 				     longtics = 1;
 				     break;
       }
