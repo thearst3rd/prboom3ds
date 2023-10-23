@@ -1,9 +1,9 @@
 //#define ADLIBC
 
-#include <stdio.h> 
+#include <stdio.h>
 #include <string.h>
 #include <malloc.h>
-#ifdef _3DS
+#ifdef __3DS__
 #include <3ds.h>
 #endif
 #include "d_main.h"
@@ -1124,7 +1124,7 @@ static int	sample16;
 static volatile int	snd_sent, snd_completed;
 
 static int	gSndBufSize = 0;
-#ifdef _3DS
+#ifdef __3DS__
 static volatile ndspWaveBuf gWavebuf[WAV_BUFFERS];
 #endif
 static float gMix[12];
@@ -1151,7 +1151,7 @@ static void dsp_init() {
 		return;
 	}
 	memset(lpData, 0, gSndBufSize);
-#ifdef _3DS
+#ifdef __3DS__
 	ndspChnSetInterp(MUS_MIX_CHANNEL, NDSP_INTERP_NONE);
 	ndspChnSetRate(MUS_MIX_CHANNEL, (float)snd_speed);
 	ndspChnSetFormat(MUS_MIX_CHANNEL, NDSP_FORMAT_STEREO_PCM16);
@@ -1176,7 +1176,7 @@ static void dsp_init() {
 }
 
 static void dsp_shutdown() {
-#ifdef _3DS
+#ifdef __3DS__
 	ndspChnWaveBufClear(MUS_MIX_CHANNEL);
 	svcSleepThread(20000);
 #endif
@@ -1214,7 +1214,7 @@ void mus_dsp_submit(void)
 			//printf("Sound overrun\n");
 			break;
 		}
-#ifdef _3DS
+#ifdef __3DS__
 		if (gWavebuf[snd_completed & WAV_MASK].status != NDSP_WBUF_DONE) {
 			//printf("%d ", gWavebuf[snd_completed & WAV_MASK].status);
 			break;
@@ -1228,7 +1228,7 @@ void mus_dsp_submit(void)
 	//
 	while (((snd_sent - snd_completed) >> sample16) < 4)
 	{
-#ifdef _3DS
+#ifdef __3DS__
 		//h = lpWaveHdr + (snd_sent&WAV_MASK);
 		ndspChnWaveBufAdd(MUS_MIX_CHANNEL, gWavebuf + (snd_sent&WAV_MASK));
 #endif

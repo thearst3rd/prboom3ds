@@ -259,7 +259,7 @@ int keyboard_scankeys()
 
 	x = y = -1;
 
-#ifdef _3DS
+#ifdef __3DS__
 	touchPosition	touch = { 0, 0 };
 	keys = keysHeld();
 
@@ -370,7 +370,7 @@ void keyboard_input() {
 	}
 }
 
-#ifdef _3DS
+#ifdef __3DS__
 extern const u8 default_font_bin[];
 static u16 *keyboard_screen;
 #endif
@@ -814,7 +814,7 @@ void keyboard_draw_region(sregion_t *region, int index, u16 c) {
 
 void keyboard_draw()
 {
-#ifdef _3DS
+#ifdef __3DS__
 	int i, h;
 	sregion_t *region;
 	int count;
@@ -895,5 +895,3 @@ void keyboard_draw()
 	}
 #endif
 }
-
-
