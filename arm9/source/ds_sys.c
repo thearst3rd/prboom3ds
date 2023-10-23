@@ -240,14 +240,15 @@ int(*I_GetTime)(void) = I_GetTime_Error;
 const char *I_DoomExeDir(void)
 {
 	static char *base = 0;
-#if 1
-	static const char current_dir_dummy[] = { "sdmc:/3ds/prboom3ds/" }; // proff - rem extra slash 8/21/03
+#if __3DS__
+	static const char current_dir_dummy[] = { "sdmc:/3ds/prboom3ds" }; // proff - rem extra slash 8/21/03
 	if (base) return base;
 	base = malloc(PATH_MAX);
 	if (!getcwd(base, PATH_MAX) || myargc == 0)
 		strcpy(base, current_dir_dummy);
 	printf("base dir: %s\n",base);
-	//Pause(5000);
+	if (strcmp(base, "/") == 0) // When installed as .cia, still use 3ds directory
+		strcpy(base, current_dir_dummy);
 #else
 	static const char current_dir_dummy[] = { "." }; // proff - rem extra slash 8/21/03
 	if (!base)        // cache multiple requests
@@ -313,4 +314,3 @@ void I_SafeExit(int rc)
 		exit(rc);
 	}
 }
-

@@ -104,7 +104,7 @@ const byte *R_GetTextureColumn(const rpatch_t *texpatch, int col) {
   while (col < 0)
     col += texpatch->width;
   col &= texpatch->widthmask;
-  
+
   return texpatch->columns[col].pixels;
 }
 
@@ -224,7 +224,7 @@ static void R_InitTextures (void)
       texture->height = SHORT(mtexture->height);
       texture->patchcount = SHORT(mtexture->patchcount);
 
-        /* Mattias Engdegård emailed me of the following explenation of
+        /* Mattias Engdegï¿½rd emailed me of the following explenation of
          * why memcpy doesnt work on some systems:
          * "I suppose it is the mad unaligned allocation
          * going on (and which gcc in some way manages to cope with
@@ -404,7 +404,7 @@ int R_ColormapNumForName(const char *name)
 /*
  * R_ColourMap
  *
- * cph 2001/11/17 - unify colour maping logic in a single place; 
+ * cph 2001/11/17 - unify colour maping logic in a single place;
  *  obsoletes old c_scalelight stuff
  */
 
@@ -476,9 +476,9 @@ void R_InitTranMap(int progress)
       } cache;
       FILE *cachefp;
 
-      fnlen = doom_snprintf(NULL, 0, "%stranmap.dat", I_DoomExeDir());
+      fnlen = doom_snprintf(NULL, 0, "%s/tranmap.dat", I_DoomExeDir());
       fname = malloc(fnlen+1);
-      doom_snprintf(fname, fnlen+1, "%stranmap.dat", I_DoomExeDir());
+      doom_snprintf(fname, fnlen+1, "%s/tranmap.dat", I_DoomExeDir());
       cachefp = fopen(fname, "rb");
 
       main_tranmap = my_tranmap = Z_Malloc(256*256, PU_STATIC, 0);  // killough 4/11/98
