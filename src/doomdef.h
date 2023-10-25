@@ -131,6 +131,9 @@ extern int SCREENHEIGHT;
 // of one pixel (8, 16 or 32 bit) and the padding at the
 // end of the line caused by hardware considerations
 extern int SCREENPITCH;
+// Taken from crispy
+extern int NONWIDEWIDTH;
+extern int WIDESCREENDELTA;
 
 // The maximum number of players, multiplayer/networking.
 #define MAXPLAYERS       4

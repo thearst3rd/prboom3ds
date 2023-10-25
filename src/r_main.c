@@ -235,6 +235,11 @@ angle_t R_PointToAngle2(fixed_t viewx, fixed_t viewy, fixed_t x, fixed_t y)
     0;
 }
 
+// [crispy] in widescreen mode, make sure the same number of horizontal
+// pixels shows the same part of the game scene as in regular rendering mode
+static int scaledviewwidth_nonwide, viewwidth_nonwide;
+static fixed_t centerxfrac_nonwide;
+
 //
 // R_InitTextureMapping
 //
@@ -252,7 +257,7 @@ static void R_InitTextureMapping (void)
   // Calc focallength
   //  so FIELDOFVIEW angles covers SCREENWIDTH.
 
-  focallength = FixedDiv(centerxfrac, finetangent[FINEANGLES/4+FIELDOFVIEW/2]);
+  focallength = FixedDiv(centerxfrac_nonwide, finetangent[FINEANGLES/4+FIELDOFVIEW/2]);
 
   for (i=0 ; i<FINEANGLES/2 ; i++)
     {
@@ -364,23 +369,27 @@ void R_ExecuteSetViewSize (void)
 
   if (setblocks == 11)
     {
+      scaledviewwidth_nonwide = NONWIDEWIDTH; // All _nonwide variables taken from Crispy Doom
       scaledviewwidth = SCREENWIDTH;
       viewheight = SCREENHEIGHT;
     }
 // proff 09/24/98: Added for high-res
   else if (setblocks == 10)
     {
+      scaledviewwidth_nonwide = NONWIDEWIDTH;
       scaledviewwidth = SCREENWIDTH;
       viewheight = SCREENHEIGHT-ST_SCALED_HEIGHT;
     }
   else
     {
 // proff 08/17/98: Changed for high-res
+      scaledviewwidth_nonwide = setblocks*NONWIDEWIDTH/10;
       scaledviewwidth = setblocks*SCREENWIDTH/10;
       viewheight = (setblocks*(SCREENHEIGHT-ST_SCALED_HEIGHT)/10) & ~7;
     }
 
   viewwidth = scaledviewwidth;
+  viewwidth_nonwide = scaledviewwidth_nonwide << gfxIsWide();
 
   viewheightfrac = viewheight<<FRACBITS;//e6y
 
@@ -388,7 +397,8 @@ void R_ExecuteSetViewSize (void)
   centerx = viewwidth/2;
   centerxfrac = centerx<<FRACBITS;
   centeryfrac = centery<<FRACBITS;
-  projection = centerxfrac;
+  centerxfrac_nonwide = (viewwidth_nonwide/2)<<FRACBITS;
+  projection = centerxfrac_nonwide;
 // proff 11/06/98: Added for high-res
   projectiony = ((SCREENHEIGHT * centerx * 320) / 200) / SCREENWIDTH * FRACUNIT;
 
@@ -398,8 +408,8 @@ void R_ExecuteSetViewSize (void)
 
   // psprite scales
 // proff 08/17/98: Changed for high-res
-  pspritescale = FRACUNIT*viewwidth / 320;
-  pspriteiscale = FRACUNIT * 320 / viewwidth;
+  pspritescale = FRACUNIT*viewwidth_nonwide / 320;
+  pspriteiscale = FRACUNIT * 320 / viewwidth_nonwide;
   // proff 11/06/98: Added for high-res
   pspriteyscale = (((SCREENHEIGHT*viewwidth) / SCREENWIDTH) << FRACBITS) / 200;
 
@@ -670,7 +680,7 @@ void R_RenderPlayerView(player_t* player)
 		viewangle_3ds = ang;
 	}
 	R_SetupFrame(player);
-	
+
 
 	/*if (renderframe) {
 		ang = -ang;

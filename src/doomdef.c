@@ -46,3 +46,6 @@
 int SCREENWIDTH = 400;// 320;
 int SCREENHEIGHT = 240;// 200;
 int SCREENPITCH=400;
+// Taken from crispy
+int NONWIDEWIDTH = 320;
+int WIDESCREENDELTA = 40;
